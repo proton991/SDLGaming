@@ -1,0 +1,30 @@
+#OBJS specifies which files to compile as part of the project
+SOURCE = $(wildcard *.c) $(wildcard *.cpp)
+OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SOURCE)))
+
+#CC specifies which compiler we're using
+CC = g++
+
+#INCLUDE_PATHS specifies the additional include paths we'll need
+INCLUDE_PATHS = -I D:\SDL_lib\include
+
+#LIBRARY_PATHS specifies the additional library paths we'll need
+LIBRARY_PATHS = -L D:\SDL_lib\lib
+
+#COMPILER_FLAGS specifies the additional compilation options we're using
+# -w suppresses all warnings
+# -Wl,-subsystem,windows gets rid of the console window
+COMPILER_FLAGS = -w Wl,-subsystem,windows
+
+#LINKER_FLAGS specifies the libraries we're linking against
+LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
+
+#OBJ_NAME specifies the name of our exectuable
+OBJ_NAME = 02_getting_an_image_on_the_screen
+TARGET = main
+#This is the target that compiles our executable
+all: $(TARGET)
+
+main: $(SOURCE)
+	$(CC) $(SOURCE) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(LINKER_FLAGS) -o $(TARGET)
+
